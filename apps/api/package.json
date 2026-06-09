@@ -5,9 +5,9 @@
 	"type": "module",
 	"scripts": {
 		"dev": "concurrently \"tsc --watch --noEmit\" \"nodemon\"",
-		"build": "rm -rf build && tsc --project tsconfig.build.json",
+		"build": "rm -rf build && tsc --project tsconfig.build.json && tsc-alias -p tsconfig.build.json",
 		"postbuild": "tsx scripts/postbuild.ts",
-		"start": "node build/index.js",
+		"start": "node build/main.js",
 		"typecheck": "tsc --project tsconfig.json --noEmit",
 		"check": "pnpm run typecheck && pnpm run lint",
 		"lint": "eslint .",
@@ -30,6 +30,7 @@
 		"@packages/prettier-config": "workspace:*",
 		"@types/express": "^5.0.6",
 		"concurrently": "^10.0.3",
-		"nodemon": "^3.1.14"
+		"nodemon": "^3.1.14",
+		"tsc-alias": "^1.8.17"
 	}
 }

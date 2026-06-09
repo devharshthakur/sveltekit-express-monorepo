@@ -1,0 +1,26 @@
+services:
+  api:
+    build:
+      context: .
+      target: api
+    environment:
+      NODE_ENV: production
+      PORT: 8000
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      target: web
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 4173
+      ORIGIN: http://localhost:4173
+    ports:
+      - "4173:4173"
+    depends_on:
+      - api
+    restart: unless-stopped
