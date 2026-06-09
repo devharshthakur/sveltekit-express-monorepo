@@ -1,0 +1,33 @@
+{
+	"name": "api",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "concurrently \"tsc --watch --noEmit\" \"nodemon\"",
+		"build": "tsc --project tsconfig.build.json",
+		"postbuild": "tsx scripts/postbuild.ts",
+		"start": "node build/index.js",
+		"typecheck": "tsc --project tsconfig.json --noEmit",
+		"check": "pnpm run typecheck && pnpm run lint",
+		"lint": "eslint .",
+		"format": "prettier --write ."
+	},
+	"lint-staged": {
+		"*.{js,ts}": [
+			"eslint",
+			"prettier --write"
+		],
+		"*.{json,md}": "prettier --write"
+	},
+	"dependencies": {
+		"express": "^5.2.1"
+	},
+	"devDependencies": {
+		"@packages/eslint-config": "workspace:*",
+		"@packages/prettier-config": "workspace:*",
+		"@types/express": "^5.0.6",
+		"concurrently": "^10.0.3",
+		"nodemon": "^3.1.14"
+	}
+}
