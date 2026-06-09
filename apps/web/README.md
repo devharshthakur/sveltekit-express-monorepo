@@ -1,42 +1,36 @@
-# sv
+# Web app
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+SvelteKit frontend for the monorepo.
 
-## Creating a project
+## Role
 
-If you're seeing this, you've probably already done this step. Congrats!
+- Own user-facing routes and UI.
+- Use Svelte 5, Vite, Tailwind CSS, and SvelteKit conventions.
+- Build to a Node-compatible production server through adapter-node.
 
-```sh
-# create a new project
-npx sv create my-app
-```
+## Structure
 
-To recreate this project with the same configuration:
+- `src/routes` — SvelteKit route tree and route-level styles.
+- `src/lib` — shared web-only modules and assets.
+- `src/app.html` — HTML shell.
+- `svelte.config.js` — SvelteKit and adapter configuration.
+- `vite.config.ts` — Vite plugin configuration.
 
-```sh
-# recreate this project
-pnpm dlx sv@0.15.4 create --template minimal --types ts --add prettier eslint tailwindcss="plugins:typography,forms" sveltekit-adapter="adapter:node" --install pnpm web
-```
+## Commands
 
-## Developing
+Run from `apps/web` or through pnpm workspace filters.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+| Command          | Purpose                         |
+| ---------------- | ------------------------------- |
+| `pnpm dev`       | Start the SvelteKit dev server. |
+| `pnpm build`     | Build production output.        |
+| `pnpm start`     | Run built Node server.          |
+| `pnpm preview`   | Preview production build.       |
+| `pnpm typecheck` | Validate Svelte and TS types.   |
+| `pnpm lint`      | Run ESLint.                     |
+| `pnpm check`     | Run type and lint checks.       |
+| `pnpm format`    | Format web files.               |
 
-```sh
-npm run dev
+## Development notes
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Keep route concerns close to their SvelteKit route. Move reusable UI or web-only helpers into `src/lib`. Keep API integration conceptual at the boundary: the web app consumes API behavior, but should not depend on API internals.
