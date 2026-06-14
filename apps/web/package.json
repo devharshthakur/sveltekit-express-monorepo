@@ -12,14 +12,14 @@
 		"typecheck": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && eslint .",
 		"lint": "eslint .",
-		"format": "prettier --write ."
+		"format": "prettier --experimental-cli --write ."
 	},
 	"lint-staged": {
 		"*.{js,ts,svelte}": [
 			"eslint",
-			"prettier --write"
+			"prettier --experimental-cli --write"
 		],
-		"*.{json,css,md}": "prettier --write"
+		"*.{json,css,md}": "prettier --experimental-cli --write"
 	},
 	"devDependencies": {
 		"@packages/eslint-config": "workspace:*",
