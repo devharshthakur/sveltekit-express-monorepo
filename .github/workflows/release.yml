@@ -40,12 +40,12 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit — changelog already up to date."
           else
-            git commit -m "docs: update CHANGELOG for ${{ github.ref_name }}"
+            git commit -m "docs: update `CHANGELOG.md` for ${{ github.ref_name }}"
             git push
           fi
 
       - name: Create release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           body: ${{ steps.git-cliff.outputs.content }}
           tag_name: ${{ github.ref_name }}
