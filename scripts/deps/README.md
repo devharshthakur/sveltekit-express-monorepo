@@ -1,0 +1,106 @@
+# Scripts Documentation
+
+This directory contains utility scripts for managing dependencies in the monorepo.
+
+## Overview
+
+These scripts help you check and update outdated dependencies across the entire monorepo, including the root package and all workspace members.
+
+## Scripts
+
+### `outdated.sh`
+
+**Purpose:** Check for outdated dependencies without making changes.
+
+**What it does:**
+
+- Iterates through all workspace members (root, apps/_, packages/_)
+- Runs `pnpm outdated` for each directory that contains a `package.json`
+- Displays the outdated packages in a readable format
+- Shows "✓ Up to date" for directories without outdated packages
+
+**Usage:**
+
+```bash
+bash scripts/outdated.sh
+```
+
+**Output example:**
+
+```
+=== .
+┌──────────────┬─────────┬────────┐
+│ Package      │ Current │ Latest │
+├──────────────┼─────────┼────────┤
+│ eslint (dev) │ 10.4.1  │ 10.5.0 │
+└──────────────┴─────────┴────────┘
+
+=== apps/web
+┌─────────────────────────┬─────────┬────────┐
+│ Package                 │ Current │ Latest │
+├─────────────────────────┼─────────┼────────┤
+│ @tailwindcss/vite (dev) │ 4.3.0   │ 4.3.1  │
+├─────────────────────────┼─────────┼────────┤
+│ tailwindcss (dev)       │ 4.3.0   │ 4.3.1  │
+└─────────────────────────┴─────────┴────────┘
+```
+
+### `update.sh`
+
+**Purpose:** Interactively update outdated dependencies with user confirmation.
+
+**What it does:**
+
+- First checks and prompts for root package.json updates
+- Then iterates through all workspace members (apps/_, packages/_)
+- For each directory with outdated packages:
+  - Displays the outdated packages
+  - Prompts "Update <name>? [y/N]"
+  - Runs `pnpm update --latest` only if user confirms with 'y' or 'Y'
+  - Continues to next directory even if individual updates fail
+- Shows "✓ Up to date" for directories without outdated packages
+
+**Usage:**
+
+```bash
+echo "N" | bash scripts/update.sh
+```
+
+**Interactive prompts:**
+
+- You'll be asked for each workspace member with outdated packages
+- Type 'y' or 'Y' to update, anything else to skip
+- The script continues even if some updates fail
+
+**Safety features:**
+
+- Requires explicit user confirmation for each update
+- Won't update anything without your approval
+- Continues processing even if individual updates fail
+
+## Notes
+
+- These scripts work with pnpm workspaces
+- The scripts are executable (`chmod +x scripts/*.sh`)
+- Root package.json is checked separately (shown as ".")
+- Apps and packages are checked in the order they appear in the workspace
+- All changes are made in-place (package.json and pnpm-lock.yaml files)
+
+## Example workflow
+
+1. Check what's outdated:
+
+   ```bash
+   bash scripts/outdated.sh
+   ```
+
+2. Update only what you want:
+
+   ```bash
+   echo "y" | bash scripts/update.sh
+   ```
+
+3. Or skip everything:
+   ```bash
+   echo "N" | bash scripts/update.sh
+   ```
