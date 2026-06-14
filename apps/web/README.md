@@ -10,11 +10,14 @@ SvelteKit frontend for the monorepo.
 
 ## Structure
 
-- `src/routes` — SvelteKit route tree and route-level styles.
-- `src/lib` — shared web-only modules and assets.
-- `src/app.html` — HTML shell.
-- `svelte.config.js` — SvelteKit and adapter configuration.
-- `vite.config.ts` — Vite plugin configuration.
+```
+src/
+├── routes/           # SvelteKit route tree and route-level styles
+├── lib/              # shared web-only modules and assets
+└── app.html         # HTML shell
+svelte.config.js     # SvelteKit and adapter configuration
+vite.config.ts       # Vite plugin configuration
+```
 
 ## Commands
 

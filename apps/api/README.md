@@ -11,12 +11,15 @@ Express API for backend HTTP concerns in the monorepo.
 
 ## Structure
 
-- `src/main.ts` — process entry point and server startup.
-- `src/env.ts` — runtime environment validation.
-- `src/routes.ts` — top-level router composition.
-- `src/routes/*` — route modules grouped by API concern.
-- `src/services/*` — business logic used by routes.
-- `src/middlewares/*` — shared request/response middleware.
+```
+src/
+├── main.ts          # process entry point and server startup
+├── env.ts           # runtime environment validation
+├── routes.ts        # top-level router composition
+├── routes/          # route modules grouped by API concern
+├── services/        # business logic used by routes
+└── middlewares/     # shared request/response middleware
+```
 
 ## Environment
 
