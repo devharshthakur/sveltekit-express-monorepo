@@ -6,7 +6,7 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV NODE_ENV="production"
 
-RUN corepack enable && corepack prepare pnpm@11.5.2 --activate
+RUN corepack enable && corepack prepare pnpm@11.6.0 --activate
 
 WORKDIR /usr/src/app
 
