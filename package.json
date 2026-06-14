@@ -30,7 +30,7 @@
     "node": "24.x"
   },
   "lint-staged": {
-    "*.{json,yml,yaml,md}": "prettier --write"
+    "*.{json,yml,yaml,md}": "prettier --experimental-cli --write"
   },
   "devDependencies": {
     "@types/node": "^25.9.3",

@@ -10,14 +10,14 @@
 		"typecheck": "tsc --project tsconfig.json --noEmit",
 		"check": "pnpm run typecheck && pnpm run lint",
 		"lint": "eslint .",
-		"format": "prettier --write ."
+		"format": "prettier --experimental-cli --write ."
 	},
 	"lint-staged": {
 		"*.{js,ts}": [
 			"eslint",
-			"prettier --write"
+			"prettier --experimental-cli --write"
 		],
-		"*.{json,md}": "prettier --write"
+		"*.{json,md}": "prettier --experimental-cli --write"
 	},
 	"dependencies": {
 		"dotenv": "^17.4.2",
