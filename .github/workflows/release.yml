@@ -10,41 +10,81 @@ permissions:
 
 jobs:
   release:
+    name: Create Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          ref: main
 
-      - name: Generate changelog
-        uses: orhun/git-cliff-action@v4
-        id: git-cliff
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
         with:
-          config: cliff.toml
-          args: -vv --latest --strip header --prepend CHANGELOG.md
-        env:
-          GITHUB_REPO: ${{ github.repository }}
+          version: 10
 
-      - name: Switch to default branch
-        run: |
-          git fetch origin "${{ github.event.repository.default_branch }}"
-          git checkout "${{ github.event.repository.default_branch }}"
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
 
-      - name: Commit changelog
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Set git identity
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add CHANGELOG.md
-          if git diff --cached --quiet; then
-            echo "No changes to commit — changelog already up to date."
+
+      - name: Generate changelog
+        run: |
+          set -euo pipefail
+          PREV_TAG=$(git tag --sort=-version:refname | grep -A1 "${{ github.ref_name }}" | tail -1)
+          VERSION=$(echo "${{ github.ref_name }}" | sed 's/^v//')
+          TODAY=$(date +%Y-%m-%d)
+
+          # Generate formatted changelog entry (strip changelogen header, keep sections)
+          {
+            echo "## [${VERSION}] - ${TODAY}"
+            echo ""
+            pnpm changelogen --no-output --from "$PREV_TAG" --to "${{ github.ref_name }}" 2>/dev/null |
+              sed -n '/^### /,$ p' |
+              grep -v '^\[compare changes\]' || true
+          } > /tmp/entry.md
+
+          # Find first version section and insert entry before it
+          INSERT_LINE=$(grep -nm1 '^## \[' CHANGELOG.md | cut -d: -f1 || true)
+          if [ -z "$INSERT_LINE" ]; then
+            # No existing entries: append after entire file
+            cat CHANGELOG.md > CHANGELOG.new
+            echo "" >> CHANGELOG.new
+            cat /tmp/entry.md >> CHANGELOG.new
           else
-            git commit -m "docs: update `CHANGELOG.md` for ${{ github.ref_name }}"
-            git push
+            head -n $((INSERT_LINE - 1)) CHANGELOG.md > CHANGELOG.new
+            cat /tmp/entry.md >> CHANGELOG.new
+            echo "" >> CHANGELOG.new
+            tail -n +${INSERT_LINE} CHANGELOG.md >> CHANGELOG.new
           fi
 
-      - name: Create release
-        uses: softprops/action-gh-release@v3
-        with:
-          body: ${{ steps.git-cliff.outputs.content }}
-          tag_name: ${{ github.ref_name }}
+          # Add link reference
+          if [ "$PREV_TAG" != "${{ github.ref_name }}" ] && [ -n "$PREV_TAG" ]; then
+            echo "[${VERSION}]: https://github.com/${{ github.repository }}/compare/${PREV_TAG}..${{ github.ref_name }}" >> CHANGELOG.new
+          fi
+
+          mv CHANGELOG.new CHANGELOG.md
+
+      - name: Commit and push CHANGELOG.md
+        run: |
+          git add CHANGELOG.md
+          git commit -m "docs: update changelog for ${{ github.ref_name }}" || true
+          git push origin main
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          awk '/^## \[/{if(flag) exit; flag=1; next} flag' CHANGELOG.md > release-notes.md
+          gh release create "${{ github.ref_name }}" \
+            --title "${{ github.ref_name }}" \
+            --notes-file release-notes.md
