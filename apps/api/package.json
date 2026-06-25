@@ -4,19 +4,19 @@
 	"type": "module",
 	"scripts": {
 		"dev": "concurrently \"tsc --watch --noEmit\" \"nodemon\"",
-		"build": "rm -rf build && tsc --project tsconfig.build.json && tsc-alias -p tsconfig.build.json",
-		"start": "node build/main.js",
+		"build": "tsdown",
+		"start": "tsdown && node build/main.js",
 		"typecheck": "tsc --project tsconfig.json --noEmit",
 		"check": "pnpm run typecheck && pnpm run lint",
 		"lint": "eslint .",
-		"format": "prettier --experimental-cli --write ."
+		"format": "prettier --write ."
 	},
 	"lint-staged": {
 		"*.{js,ts}": [
 			"eslint",
-			"prettier --experimental-cli --write"
+			"prettier --write"
 		],
-		"*.{json,md}": "prettier --experimental-cli --write"
+		"*.{json,md}": "prettier --write"
 	},
 	"dependencies": {
 		"dotenv": "^17.4.2",
@@ -29,6 +29,6 @@
 		"@types/express": "^5.0.6",
 		"concurrently": "^10.0.3",
 		"nodemon": "^3.1.14",
-		"tsc-alias": "^1.8.17"
+		"tsdown": "^0.22.3"
 	}
 }

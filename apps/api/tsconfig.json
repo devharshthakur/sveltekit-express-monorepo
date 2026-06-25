@@ -19,12 +19,11 @@
 		"noEmit": true,
 		"paths": {
 			"$lib/*": ["./src/lib/*"],
-			"$routes": ["./src/routes/*"],
 			"$middlewares/*": ["./src/middlewares/*"],
 			"$routes/*": ["./src/routes/*"],
 			"$services/*": ["./src/services/*"]
 		}
 	},
-	"include": ["src/**/*", "scripts/**/*"],
+	"include": ["src/**/*", "scripts/**/*", "tsdown.config.ts"],
 	"exclude": ["node_modules", "build"]
 }
