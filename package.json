@@ -13,9 +13,9 @@
     "typecheck": "turbo run typecheck",
     "check": "turbo run check",
     "prepare": "husky",
-    "docker:build": "docker compose up -d --build",
-    "deps:outdated": "bash scripts/deps/outdated.sh",
-    "deps:update": "bash scripts/deps/update.sh"
+    "docker:start": "docker compose up -d --build",
+    "deps:outdated": "tsx scripts/outdated.ts",
+    "deps:update": "tsx scripts/update.ts"
   },
   "keywords": [],
   "author": {
@@ -30,7 +30,7 @@
     "node": "24.x"
   },
   "lint-staged": {
-    "*.{json,yml,yaml,md}": "prettier --experimental-cli --write"
+    "*.{json,yml,yaml,md}": "prettier --write"
   },
   "devDependencies": {
     "@types/node": "^25.9.3",
