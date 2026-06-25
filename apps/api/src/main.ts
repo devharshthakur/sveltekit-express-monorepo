@@ -7,6 +7,23 @@ const app = express();
 app.use(express.json());
 app.use(router);
 
-app.listen(env.PORT, () => {
+const server = app.listen(env.PORT, () => {
 	console.log(`API server listening on port ${env.PORT}`);
 });
+
+/** Gracefully stop the server, drain inflight requests, then exit. */
+const gracefulShutdown = (signal: 'SIGTERM' | 'SIGINT') => {
+	console.log(`Received ${signal}, shutting down gracefully...`);
+	server.close(() => {
+		console.log('Server closed, exiting.');
+		process.exit(0);
+	});
+
+	setTimeout(() => {
+		console.error('Forced shutdown after timeout');
+		process.exit(1);
+	}, 15_000).unref();
+};
+
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));

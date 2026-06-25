@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "description": "A sveltekit + express monorepo starter template",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devharshthakur/sveltekit-express-monorepo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/devharshthakur/sveltekit-express-monorepo/issues"
+  },
+  "homepage": "https://github.com/devharshthakur/sveltekit-express-monorepo#readme",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
@@ -13,9 +21,9 @@
     "typecheck": "turbo run typecheck",
     "check": "turbo run check",
     "prepare": "husky",
-    "docker:build": "docker compose up -d --build",
-    "deps:outdated": "bash scripts/deps/outdated.sh",
-    "deps:update": "bash scripts/deps/update.sh"
+    "docker:start": "docker compose up -d --build",
+    "deps:outdated": "tsx scripts/outdated.ts",
+    "deps:update": "tsx scripts/update.ts"
   },
   "keywords": [],
   "author": {
@@ -30,7 +38,7 @@
     "node": "24.x"
   },
   "lint-staged": {
-    "*.{json,yml,yaml,md}": "prettier --experimental-cli --write"
+    "*.{json,yml,yaml,md}": "prettier --write"
   },
   "devDependencies": {
     "@types/node": "^25.9.3",
