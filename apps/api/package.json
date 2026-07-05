@@ -9,7 +9,7 @@
 		"typecheck": "tsc --project tsconfig.json --noEmit",
 		"check": "pnpm run typecheck && pnpm run lint",
 		"lint": "eslint .",
-		"format": "prettier --write ."
+		"format": "prettier --write --ignore-unknown --list-different ."
 	},
 	"lint-staged": {
 		"*.{js,ts}": [

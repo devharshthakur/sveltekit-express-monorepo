@@ -12,7 +12,7 @@
 		"typecheck": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && eslint .",
 		"lint": "eslint .",
-		"format": "prettier --experimental-cli --write ."
+		"format": "prettier --write --ignore-unknown --list-different ."
 	},
 	"lint-staged": {
 		"*.{js,ts,svelte}": [

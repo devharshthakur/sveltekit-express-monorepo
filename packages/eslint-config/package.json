@@ -6,7 +6,7 @@
     ".": "./index.js"
   },
   "scripts": {
-    "format": "prettier --write ."
+    "format": "prettier --write --ignore-unknown --list-different ."
   },
   "dependencies": {
     "@eslint/js": "^10.0.1",
