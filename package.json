@@ -24,7 +24,8 @@
     "docker:start": "docker compose up -d --build",
     "deps:outdated": "tsx scripts/outdated.ts",
     "deps:update": "tsx scripts/update.ts",
-    "changelog": "changelogen --no-output"
+    "changelog": "changelogen --no-output",
+    "test:setup": "bash test-setup.sh"
   },
   "keywords": [],
   "author": {
