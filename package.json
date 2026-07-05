@@ -17,6 +17,7 @@
     "start": "turbo run build && turbo run start",
     "preview": "turbo run preview",
     "format": "turbo run format",
+    "format:root": "prettier --write --ignore-unknown .",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "check": "turbo run check",
