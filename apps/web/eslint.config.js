@@ -1,8 +1,16 @@
 import path from 'node:path';
-import { baseConfig, globals, prettierConfig, ts } from '@packages/eslint-config';
+import { baseConfig, globals, ts } from '@packages/eslint-config';
 import svelte from 'eslint-plugin-svelte';
 import { defineConfig, includeIgnoreFile } from 'eslint/config';
-import svelteConfig from './svelte.config.js';
+
+// Inline Svelte compiler options — svelte.config.js was removed in favor of
+// passing config directly to sveltekit() in vite.config.ts (SvelteKit >= 2.62.0).
+const svelteConfig = {
+	compilerOptions: {
+		runes: ({ filename }) =>
+			filename.split(/[/\\]/).includes('node_modules') ? undefined : true
+	}
+};
 
 const gitignorePath = path.resolve(import.meta.dirname, '.gitignore');
 
@@ -10,7 +18,6 @@ export default defineConfig(
 	includeIgnoreFile(gitignorePath),
 	...baseConfig,
 	svelte.configs.recommended,
-	prettierConfig,
 	svelte.configs.prettier,
 	{
 		languageOptions: { globals: { ...globals.browser } }

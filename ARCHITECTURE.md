@@ -14,7 +14,7 @@
 │   └── web
 │       ├── package.json
 │       ├── tsconfig.json
-│       ├── svelte.config.js
+│       ├── vite.config.ts        # SvelteKit config passed to sveltekit() plugin
 │       └── src/
 ├── packages
 │   ├── eslint-config
