@@ -14,15 +14,9 @@ export default ts.config(
 			}
 		},
 		rules: {
-			'@typescript-eslint/no-unused-vars': [
-				'error',
-				{ argsIgnorePattern: '^_', varsIgnorePattern: '^_' }
-			],
-			'@typescript-eslint/consistent-type-imports': [
-				'error',
-				{ prefer: 'type-imports', fixStyle: 'separate-type-imports' }
-			],
-			'@typescript-eslint/no-explicit-any': 'warn',
+			// Common TS rules now inherited from baseConfig (no-unused-vars,
+			// consistent-type-imports, no-explicit-any). These two remain here
+			// because they require type information:
 			'@typescript-eslint/prefer-nullish-coalescing': 'error',
 			'@typescript-eslint/prefer-optional-chain': 'error'
 		}
