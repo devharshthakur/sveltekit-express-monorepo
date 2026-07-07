@@ -1,4 +1,4 @@
-import { baseConfig, prettierConfig, ts } from '@packages/eslint-config';
+import { baseConfig, ts } from '@packages/eslint-config';
 
 export default ts.config(
 	{
@@ -6,7 +6,6 @@ export default ts.config(
 	},
 	...baseConfig,
 	...ts.configs.recommendedTypeChecked,
-	prettierConfig,
 	{
 		languageOptions: {
 			parserOptions: {
