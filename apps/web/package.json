@@ -12,30 +12,30 @@
 		"typecheck": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && eslint .",
 		"lint": "eslint .",
-		"format": "prettier --experimental-cli --write ."
+		"format": "prettier --write --ignore-unknown --list-different ."
 	},
 	"lint-staged": {
 		"*.{js,ts,svelte}": [
 			"eslint",
-			"prettier --experimental-cli --write"
+			"prettier --write"
 		],
 		"*.{json,css,md}": "prettier --experimental-cli --write"
 	},
 	"devDependencies": {
 		"@packages/eslint-config": "workspace:*",
 		"@packages/prettier-config": "workspace:*",
-		"@sveltejs/adapter-node": "^5.5.6",
-		"@sveltejs/kit": "^2.67.0",
+		"@sveltejs/adapter-node": "^5.5.7",
+		"@sveltejs/kit": "^2.69.1",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
 		"@tailwindcss/forms": "^0.5.11",
 		"@tailwindcss/typography": "^0.5.20",
-		"@tailwindcss/vite": "^4.3.1",
-		"eslint-plugin-svelte": "^3.19.0",
+		"@tailwindcss/vite": "^4.3.2",
+		"eslint-plugin-svelte": "^3.20.0",
 		"prettier-plugin-svelte": "^4.1.1",
 		"prettier-plugin-tailwindcss": "^0.8.0",
 		"svelte": "^5.56.4",
 		"svelte-check": "^4.7.1",
-		"tailwindcss": "^4.3.1",
-		"vite": "^8.1.0"
+		"tailwindcss": "^4.3.2",
+		"vite": "^8.1.3"
 	}
 }

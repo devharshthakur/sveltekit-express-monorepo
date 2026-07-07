@@ -17,8 +17,12 @@
       "cache": false,
       "persistent": true
     },
-    "format": {
+    "//#format:root": {
       "cache": false
+    },
+    "format": {
+      "cache": false,
+      "dependsOn": ["//#format:root"]
     },
     "lint": {
       "dependsOn": ["^lint"]

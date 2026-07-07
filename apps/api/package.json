@@ -7,9 +7,9 @@
 		"build": "tsdown",
 		"start": "tsdown && node build/main.js",
 		"typecheck": "tsc --project tsconfig.json --noEmit",
-		"check": "pnpm run typecheck && pnpm run lint",
+		"check": "tsc --project tsconfig.json --noEmit && eslint .",
 		"lint": "eslint .",
-		"format": "prettier --write ."
+		"format": "prettier --write --ignore-unknown --list-different ."
 	},
 	"lint-staged": {
 		"*.{js,ts}": [

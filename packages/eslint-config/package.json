@@ -5,6 +5,9 @@
   "exports": {
     ".": "./index.js"
   },
+  "scripts": {
+    "format": "prettier --write --ignore-unknown --list-different ."
+  },
   "dependencies": {
     "@eslint/js": "^10.0.1",
     "eslint-config-prettier": "^10.1.8",
