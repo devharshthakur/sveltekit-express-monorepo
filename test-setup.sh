@@ -122,16 +122,7 @@ validate_package_json() {
 
 show_final_state() {
 	echo ""
-	echo "--- Final project state ---"
-	echo ""
-	echo "Directory contents:"
-	ls -la "$TEMP_DIR"
-	echo ""
-	echo "package.json:"
-	jq '.' "$TEMP_DIR/package.json"
-	echo ""
-	echo "Git log:"
-	git -C "$TEMP_DIR" log --oneline -3
+	echo "Setup verified at: $TEMP_DIR/"
 }
 
 main() {

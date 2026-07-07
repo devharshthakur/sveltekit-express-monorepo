@@ -32,9 +32,9 @@ clean_package_json() {
 }
 
 reinit_git() {
-	git init
+	git init --quiet
 	git add -A
-	git commit -m "Initial commit"
+	git commit -m "Initial commit" --quiet
 }
 
 main() {
