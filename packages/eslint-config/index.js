@@ -7,6 +7,7 @@ import ts from "typescript-eslint";
 export { globals, ts };
 
 export const baseConfig = defineConfig(
+	...prettier,
 	js.configs.recommended,
 	...ts.configs.recommended,
 	{
@@ -22,7 +23,5 @@ export const baseConfig = defineConfig(
 		},
 	},
 );
-
-export const prettierConfig = prettier;
 
 export default defineConfig(...baseConfig, prettierConfig);
