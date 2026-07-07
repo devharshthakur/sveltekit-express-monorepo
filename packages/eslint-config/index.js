@@ -11,11 +11,7 @@ export const baseConfig = defineConfig(
 	js.configs.recommended,
 	...ts.configs.recommended,
 	{
-		ignores: [
-			'node_modules/**',
-			'dist/**',
-			'build/**',
-		],
+		ignores: ["node_modules/**", "dist/**", "build/**"],
 	},
 	{
 		languageOptions: {
