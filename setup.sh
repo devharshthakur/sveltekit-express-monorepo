@@ -15,6 +15,10 @@ remove_changelog() {
 	rm -f CHANGELOG.md
 }
 
+remove_setup_scripts() {
+	rm -f setup.sh test-setup.sh
+}
+
 clean_package_json() {
 	if [ ! -f package.json ]; then return 1; fi
 	jq --indent 2 '
@@ -41,6 +45,7 @@ main() {
 	if remove_github_folder; then echo "  ✓ Removed .github"; fi
 	if remove_changelog; then echo "  ✓ Removed CHANGELOG.md"; fi
 	if clean_package_json; then echo "  ✓ Cleaned package.json"; fi
+	if remove_setup_scripts; then echo "  ✓ Removed setup scripts"; fi
 
 	echo ""
 	reinit_git

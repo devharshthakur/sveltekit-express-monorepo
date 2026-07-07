@@ -60,6 +60,16 @@ validate_git_repo() {
 	fi
 }
 
+validate_no_file() {
+	local label="$1" file="$2"
+	if [ ! -f "$TEMP_DIR/$file" ]; then
+		echo "  ✓ $label"
+	else
+		echo "  ✗ $label"
+		FAILED=1
+	fi
+}
+
 validate_pkg_field() {
 	local label="$1" filter="$2"
 	if jq -e "$filter" "$TEMP_DIR/package.json" > /dev/null 2>&1; then
@@ -139,6 +149,8 @@ main() {
 	validate_git_repo
 	validate_no_github_folder
 	validate_no_changelog
+	validate_no_file "setup.sh removed" "setup.sh"
+	validate_no_file "test-setup.sh removed" "test-setup.sh"
 	validate_package_json
 
 	show_final_state
