@@ -88,6 +88,8 @@ validate_package_json() {
 	validate_pkg_field "keywords removed" '.keywords == null'
 	validate_pkg_field "scripts.changelog removed" '.scripts.changelog == null'
 	validate_pkg_field "scripts.test:setup removed" '.scripts."test:setup" == null'
+	validate_pkg_field "scripts.deps:outdated removed" '.scripts."deps:outdated" == null'
+	validate_pkg_field "scripts.deps:update removed" '.scripts."deps:update" == null'
 
 	local version
 	version=$(jq -r '.version' "$pkg")

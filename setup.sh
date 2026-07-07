@@ -19,7 +19,8 @@ clean_package_json() {
 	if [ ! -f package.json ]; then return 1; fi
 	jq --indent 2 '
 		del(.repository, .bugs, .homepage, .author, .keywords,
-			.scripts.changelog, .scripts."test:setup")
+			.scripts.changelog, .scripts."test:setup",
+			.scripts."deps:outdated", .scripts."deps:update")
 		| .version = "0.0.0"
 		| .description = ""
 	' package.json > package.json.tmp &&
