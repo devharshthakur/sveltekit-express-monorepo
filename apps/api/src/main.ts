@@ -1,10 +1,14 @@
 import { env } from './env.js';
 import { router } from './routes.js';
+import cors from 'cors';
 import express from 'express';
 
 const app = express();
 
+const corsOrigins = env.CORS_ORIGIN === '*' ? '*' : env.CORS_ORIGIN.split(',').map((s) => s.trim());
+
 app.use(express.json());
+app.use(cors({ origin: corsOrigins }));
 app.use(router);
 
 const server = app.listen(env.PORT, () => {
