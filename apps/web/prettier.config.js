@@ -1,8 +1,8 @@
-import config from '@packages/prettier-config';
+import baseConfig from '@packages/prettier-config';
 
 /** @type {import('prettier').Config} */
 export default {
-	...config,
+	...baseConfig,
 	plugins: ['prettier-plugin-svelte', 'prettier-plugin-tailwindcss'],
 	overrides: [
 		{
