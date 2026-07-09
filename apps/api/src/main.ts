@@ -2,11 +2,13 @@ import { env } from './env.js';
 import { router } from './routes.js';
 import cors from 'cors';
 import express from 'express';
+import helmet from 'helmet';
 
 const app = express();
 
 const corsOrigins = env.CORS_ORIGIN === '*' ? '*' : env.CORS_ORIGIN.split(',').map((s) => s.trim());
 
+app.use(helmet());
 app.use(express.json());
 app.use(cors({ origin: corsOrigins }));
 app.use(router);
